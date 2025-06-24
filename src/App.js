@@ -11,7 +11,7 @@ export default class App extends Component {
     return (
       <div> 
         <NavBar/>
-        <News/>
+        <News p_size = {6}/>
         {/* <NewsItem/> */}
       </div>
     )
