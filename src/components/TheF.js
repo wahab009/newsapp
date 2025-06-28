@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoadingVla from '../LoadingVla.gif'; // ✅ Correct import
+import LoadingVla from '../LoadingVla.gif'; 
 
 export class TheF extends Component {
   render() {

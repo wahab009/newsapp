@@ -9,6 +9,7 @@ import TheF from './TheF';
 
 
 export class News extends Component {
+ 
   constructor() {
     super();
     this.state = {
@@ -16,9 +17,15 @@ export class News extends Component {
       loading: true,
       page: 1,
       totalPages: 0
-
     };
   }
+
+  static defaultProps = {
+    country: 'us',
+    category : 'technology'
+  };
+
+
 
 
 
@@ -28,7 +35,7 @@ export class News extends Component {
 
   async componentDidMount() {
     console.log("cdm running");
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${this.props.p_size}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${this.props.p_size}`;
     let data = await fetch(url);
     this.setState({ loading: true });
     let pressedData = await data.json();
@@ -44,7 +51,7 @@ export class News extends Component {
   }
   onNext = async () => {
     console.log("Next was clicked");
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${(this.props.p_size)}&page=${this.state.page + 1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${(this.props.p_size)}&page=${this.state.page + 1}`;
     let data = await fetch(url);
     this.setState({ loading: true });
     let pressedData = await data.json();
@@ -58,7 +65,7 @@ export class News extends Component {
   }
   onPrevious = async () => {
     console.log("previous was clicked");
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${(this.props.p_size)}&page=${this.state.page - 1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${(this.props.p_size)}&page=${this.state.page - 1}`;
     let data = await fetch(url);
     this.setState({ loading: true });
     let pressedData = await data.json();
@@ -77,7 +84,7 @@ export class News extends Component {
     return (
       <div className="container mt-3">
         {this.state.loading && <TheF />}
-        <h2 className=" text-center mt-3">Top Headlines of New New News</h2>
+        <h2 style={{marginTop: 20,marginBottom: 20}} className=" text-center mt-3">Top Headlines of New New News</h2>
 
         <div className="row">
           {!this.state.loading && this.state.articles.map((element) => {
