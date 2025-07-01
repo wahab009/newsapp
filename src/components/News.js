@@ -16,14 +16,15 @@ export class News extends Component {
       articles: [],
       loading: true,
       page: 1,
+      category: "",
       totalPages: 0
     };
   }
 
-  static defaultProps = {
-    country: 'us',
-    category : 'technology'
-  };
+  // static defaultProps = {
+  //   country: 'us',
+  //   category : 'general'
+  // };
 
 
 
@@ -49,6 +50,22 @@ export class News extends Component {
       });
 
   }
+  
+async componentDidUpdate(prevProps) {
+  if (prevProps.category !== this.props.category) {
+    console.log("Category changed, refetching data...");
+    this.setState({ loading: true, page: 1 }); // Reset page to 1
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${this.props.p_size}`;
+    let data = await fetch(url);
+    let pressedData = await data.json();
+    this.setState({
+      articles: pressedData.articles,
+      loading: false,
+      totalPages: Math.ceil(pressedData.totalResults / this.props.p_size),
+      page: 1
+    });
+  }
+}
   onNext = async () => {
     console.log("Next was clicked");
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=df14f9c4c05048af91aa2c76bab188a6&pageSize=${(this.props.p_size)}&page=${this.state.page + 1}`;
