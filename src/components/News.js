@@ -17,7 +17,8 @@ export class News extends Component {
       loading: true,
       page: 1,
       category: "",
-      totalPages: 0
+      totalPages: 0,
+      source:""
     };
   }
 
@@ -108,10 +109,12 @@ async componentDidUpdate(prevProps) {
             return (
               <div className="col-md-4" style={{ marginTop: 10 }} key={element.url}>
                 <NewsItem
-                  title={element.title ? element.title.slice(0,46) : "Title not available"}
+                  title={element.title ? element.title.slice(0,40) : "Title not available"}
                   ImgUrl={element.urlToImage}
                   description={element.description ? element.description.slice(0,200) : "Click below for details"}
                   newsurl={element.url}
+                  pubdate={element.publishedAt}
+                  source={element.source.name}
                 />
               </div>
             );
