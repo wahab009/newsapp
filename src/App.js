@@ -3,7 +3,7 @@ import NavBar from "./components/NavBar";
 import React, { Component } from 'react';
 import News from './components/News';
 import LoadingBar from "react-top-loading-bar";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export default class App extends Component {
  myapikey = process.env.REACT_APP_NEWS_API_KEY;
@@ -16,7 +16,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <BrowserRouter basename="/newsapp">
+      <HashRouter>
         <div>
           <NavBar />
            <LoadingBar
@@ -37,7 +37,7 @@ export default class App extends Component {
             <Route path="/technology" element={<News  myapikey = {this.myapikey} setProgress = {this.setProgress} p_size={100} category="technology" />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
